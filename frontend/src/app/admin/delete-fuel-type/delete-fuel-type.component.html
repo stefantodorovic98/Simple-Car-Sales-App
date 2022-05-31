@@ -1,0 +1,24 @@
+<button mat-icon-button [routerLink]="['/admin']">
+  <mat-icon>keyboard_backspace</mat-icon>
+  <span>Nazad</span>
+</button>
+<mat-card>
+    <mat-card-title>
+        Obrisi vrstu goriva
+    </mat-card-title>
+    <mat-spinner *ngIf="isLoading"></mat-spinner>
+    <form (submit)="deleteFuelType()" *ngIf="!isLoading" [formGroup]="form">
+        <mat-form-field>
+            <mat-select formControlName="fuel">
+                <mat-option *ngFor="let fuelType of fuelTypes" [value]="fuelType">
+                    {{fuelType}}
+                </mat-option>
+            </mat-select>
+            <mat-error *ngIf="form.get('fuel')?.invalid">
+                Molim izaberite tip goriva automobila.
+            </mat-error>
+        </mat-form-field>
+        <br>
+        <button mat-raised-button color="accent" type="submit">Obrisi</button>
+    </form>
+</mat-card>

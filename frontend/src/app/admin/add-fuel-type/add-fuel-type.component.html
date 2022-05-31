@@ -1,0 +1,20 @@
+<button mat-icon-button [routerLink]="['/admin']">
+  <mat-icon>keyboard_backspace</mat-icon>
+  <span>Nazad</span>
+</button>
+<mat-card>
+    <mat-card-title>
+        Dodaj vrstu goriva
+    </mat-card-title>
+    <mat-spinner *ngIf="isLoading"></mat-spinner>
+    <form (submit)="addFuelType()" *ngIf="!isLoading" [formGroup]="form">
+        <mat-form-field>
+            <input matInput formControlName="fuel">
+            <mat-error *ngIf="form.get('fuel')?.invalid">
+                Molim unesite tip goriva automobila.
+            </mat-error>
+        </mat-form-field>
+        <br>
+        <button mat-raised-button color="accent" type="submit">Dodaj</button>
+    </form>
+</mat-card>

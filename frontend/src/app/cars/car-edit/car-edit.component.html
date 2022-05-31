@@ -1,0 +1,109 @@
+<button mat-icon-button [routerLink]="['/myCarList']">
+  <mat-icon>keyboard_backspace</mat-icon>
+  <span>Nazad</span>
+</button>
+<mat-card>
+    <mat-card-title>
+        Azuriraj podatke o oglasu
+    </mat-card-title>
+    <mat-spinner *ngIf="isLoading"></mat-spinner>
+    <form (submit)="onUpdateCar()" *ngIf="!isLoading" [formGroup]="form">
+        <mat-form-field>
+            <input matInput formControlName="title" placeholder="Naslov oglasa">
+            <mat-error *ngIf="form.get('title')?.invalid">
+                Molim unesite naslov oglasa.
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-select formControlName="brand" placeholder="Marka automobila" #brandSelect (selectionChange)="onChange(brandSelect.value)">
+                <mat-option *ngFor="let brand of brands" [value]="brand">
+                    {{brand}}
+                </mat-option>
+            </mat-select>
+            <mat-error *ngIf="form.get('brand')?.invalid">
+                Molim unesite marku automobila.
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-select formControlName="model" placeholder="Model automobila">
+                <mat-option *ngFor="let model of models" [value]="model">
+                    {{model}}
+                </mat-option>
+            </mat-select>
+            <mat-error *ngIf="form.get('model')?.invalid">
+                Molim unesite model automobila.
+            </mat-error>
+        </mat-form-field>
+        <div>
+            <button mat-stroked-button type="button" (click)="filePicker.click()">Izaberite sliku</button>
+            <input type="file" #filePicker (change)="onImagePicked($event)">
+        </div>
+        <div class="image-preview" *ngIf="imagePreview !== '' && imagePreview && form.get('image')?.valid">
+            <img [src]="imagePreview" [alt]="form.value.title">
+        </div>
+        <mat-form-field>
+            <input matInput formControlName="mileage" placeholder="Kilometraza">
+            <mat-error *ngIf="form.get('mileage')?.errors?.['required']">
+                Molim unesite kilometrazu automobila.
+            </mat-error>
+            <mat-error *ngIf="form.get('mileage')?.errors?.['pattern']">
+                Unesite kilometrazu od 0 do 999999!
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-select formControlName="registration" placeholder="Godiste">
+                <mat-option *ngFor="let year of years" [value]="year">
+                    {{year}}
+                </mat-option>
+            </mat-select>
+            <mat-error *ngIf="form.get('registration')?.invalid">
+                Molim unesite godiste automobila.
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput formControlName="price" placeholder="Cena">
+            <mat-error *ngIf="form.get('price')?.errors?.['required']">
+                Molim unesite model automobila.
+            </mat-error>
+            <mat-error *ngIf="form.get('price')?.errors?.['pattern']">
+                Unesite cenu od 0 do 999999!
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-select formControlName="fuel" placeholder="Gorivo">
+                <mat-option *ngFor="let fuelType of fuelTypes" [value]="fuelType">
+                    {{fuelType}}
+                </mat-option>
+            </mat-select>
+            <mat-error *ngIf="form.get('color')?.invalid">
+                Molim unesite tip goriva automobila.
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-select formControlName="color" placeholder="Boja">
+                <mat-option *ngFor="let color of colors" [value]="color">
+                    {{color}}
+                </mat-option>
+            </mat-select>
+            <mat-error *ngIf="form.get('color')?.invalid">
+                Molim unesite boju automobila.
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput formControlName="phone" placeholder="Broj telefona">
+            <mat-error *ngIf="form.get('phone')?.errors?.['required']">
+                Molim unesite broj telefona.
+            </mat-error>
+            <mat-error *ngIf="form.get('phone')?.errors?.['pattern']">
+                Unesite broj telefona u odgovarajucem formatu!
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field>
+            <textarea matInput rows="4" formControlName="content" placeholder="Opis oglasa"></textarea>
+            <mat-error *ngIf="form.get('content')?.invalid">
+                Molim unesite opis oglasa.
+            </mat-error>
+        </mat-form-field>
+        <button mat-raised-button color="accent" type="submit">Sacuvaj oglas</button>
+    </form>
+</mat-card>

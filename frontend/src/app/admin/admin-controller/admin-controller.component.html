@@ -1,0 +1,82 @@
+<mat-card>
+    <mat-card-title>
+        Administratorske kontrole
+    </mat-card-title>
+    <mat-card>
+        <ul>
+            <li>
+                <button mat-raised-button color="primary" type="button" routerLink="/addBrand">Dodaj marku automobila</button>
+            </li>
+            <li>
+                <button mat-raised-button color="warn" type="submit" routerLink="/deleteBrand">Obrisi marku automobila</button>
+            </li>
+        </ul>
+    </mat-card>
+    <br>
+    <mat-card>
+        <ul>
+            <li>
+                <button mat-raised-button color="primary" type="button" routerLink="/addModel">Dodaj model automobila</button>
+            </li>
+            <li>
+                <button mat-raised-button color="warn" type="submit" routerLink="/deleteModel">Obrisi model automobila</button>
+            </li>
+        </ul>
+    </mat-card>
+    <br>
+    <mat-card>
+        <ul>
+            <li>
+                <button mat-raised-button color="primary" type="button" routerLink="/addFuelType">Dodaj vrstu goriva</button>
+            </li>
+            <li>
+                <button mat-raised-button color="warn" type="submit" routerLink="/deleteFuelType">Obrisi vrstu goriva</button>
+            </li>
+            <li>
+                <button mat-raised-button color="primary" type="button" routerLink="/addColor">Dodaj boju</button>
+            </li>
+            <li>
+                <button mat-raised-button color="warn" type="submit" routerLink="/deleteColor">Obrisi boju</button>
+            </li>
+        </ul>
+    </mat-card>
+</mat-card>
+<br>
+<mat-card>
+    <mat-card-title>Korisnici</mat-card-title>
+    <mat-card-content>
+        <mat-table [dataSource]="users" class="mat-elevation-z8" *ngIf="users.length>0 && !isLoading">
+            <ng-container matColumnDef="firstName">
+                <mat-header-cell *matHeaderCellDef> Ime </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.firstName}} </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="lastName">
+                <mat-header-cell *matHeaderCellDef> Prezime </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.lastName}} </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="userInfo">
+                <mat-header-cell *matHeaderCellDef> Informacije </mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                    <button mat-icon-button [routerLink]="['/userInfo',element.id]">
+                        <mat-icon>info</mat-icon>
+                    </button>
+                </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="userOptions">
+                <mat-header-cell *matHeaderCellDef> Dozvole za korisnika </mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                    <button mat-icon-button (click)="blockUser(element.id)" *ngIf="!element.banned">
+                        Blokiraj korisnika
+                        <mat-icon>block</mat-icon>
+                    </button>
+                    <button mat-icon-button (click)="unblockUser(element.id)" *ngIf="element.banned">
+                        Odblokiraj korisnika
+                        <mat-icon>done</mat-icon>
+                  </button>
+                </mat-cell>
+            </ng-container>
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        </mat-table>
+    </mat-card-content>
+</mat-card>

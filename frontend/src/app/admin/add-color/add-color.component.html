@@ -1,0 +1,20 @@
+<button mat-icon-button [routerLink]="['/admin']">
+  <mat-icon>keyboard_backspace</mat-icon>
+  <span>Nazad</span>
+</button>
+<mat-card>
+    <mat-card-title>
+        Dodaj boju
+    </mat-card-title>
+    <mat-spinner *ngIf="isLoading"></mat-spinner>
+    <form (submit)="addColor()" *ngIf="!isLoading" [formGroup]="form">
+        <mat-form-field>
+            <input matInput formControlName="color">
+            <mat-error *ngIf="form.get('color')?.invalid">
+                Molim unesite boju.
+            </mat-error>
+        </mat-form-field>
+        <br>
+        <button mat-raised-button color="accent" type="submit">Dodaj</button>
+    </form>
+</mat-card>

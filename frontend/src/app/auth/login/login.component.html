@@ -1,0 +1,25 @@
+<mat-card>
+    <mat-card-title>
+        Prijava korisnika
+    </mat-card-title>
+    <br>
+    <mat-spinner *ngIf="isLoading"></mat-spinner>
+    <form (submit)="onLogin()" *ngIf="!isLoading" [formGroup]="form">
+        <mat-form-field>
+            <input matInput type="email" placeholder="E-Mail" formControlName="email">
+            <mat-error *ngIf="form.get('email')?.errors?.['required']">
+                Polje mora biti popunjeno!
+            </mat-error>
+            <mat-error *ngIf="form.get('email')?.errors?.['email']">
+                Molim unesite ispravnu e-mail adresu.
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput type="password" placeholder="Lozinka" formControlName="password">
+            <mat-error *ngIf="form.get('password')?.invalid">
+                Polje mora biti popunjeno!
+            </mat-error>
+        </mat-form-field>
+        <button mat-raised-button color="accent" type="submit" *ngIf="!isLoading">Prijavi se</button>
+    </form>
+</mat-card>

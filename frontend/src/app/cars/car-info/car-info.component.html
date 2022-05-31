@@ -1,0 +1,63 @@
+<button mat-icon-button [routerLink]="['/']">
+  <mat-icon>keyboard_backspace</mat-icon>
+  <span>Nazad</span>
+</button>
+<div *ngIf="userIsAdmin">
+    <button mat-icon-button (click)="onAdminDelete()">
+    <mat-icon>delete_forever</mat-icon>
+    <span>Administrator: Obrisi oglas</span>
+  </button>
+</div>
+<mat-card>
+    <mat-card-title>
+        Novi oglas
+    </mat-card-title>
+    <mat-spinner *ngIf="isLoading"></mat-spinner>
+    <form *ngIf="!isLoading" [formGroup]="form">
+        <mat-form-field>
+            <mat-label>Naslov oglasa</mat-label>
+            <input matInput formControlName="title">
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Marka automobila</mat-label>
+            <input matInput formControlName="brand" readonly>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Model automobila</mat-label>
+            <input matInput formControlName="model" readonly>
+        </mat-form-field>
+        <div class="image"><img [src]="path" /> </div>
+        <mat-form-field>
+            <mat-label>Kilometraza</mat-label>
+            <input matInput formControlName="mileage" readonly>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Godiste</mat-label>
+            <input matInput formControlName="registration" readonly>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Cena</mat-label>
+            <input matInput formControlName="price" readonly>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Gorivo</mat-label>
+            <input matInput formControlName="fuel" readonly>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Boja</mat-label>
+            <input matInput formControlName="color" readonly>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Broj telefona</mat-label>
+            <input matInput formControlName="phone" readonly>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Opis oglasa</mat-label>
+            <textarea matInput rows="4" formControlName="content" readonly></textarea>
+        </mat-form-field>
+    </form>
+    <div *ngIf="userIsAuthenticated">
+        <p>Vlasnik:</p>
+        <a mat-button color="primary" [routerLink]="['/userInfo', ownerId]">{{ ownerName }}</a>
+    </div>
+</mat-card>

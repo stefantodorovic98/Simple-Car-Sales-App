@@ -1,0 +1,30 @@
+<button mat-icon-button [routerLink]="['/admin']">
+  <mat-icon>keyboard_backspace</mat-icon>
+  <span>Nazad</span>
+</button>
+<mat-card>
+    <mat-card-title>
+        Dodaj model automobila
+    </mat-card-title>
+    <mat-spinner *ngIf="isLoading"></mat-spinner>
+    <form (submit)="addModel()" *ngIf="!isLoading" [formGroup]="form">
+        <mat-form-field>
+            <mat-select formControlName="brand" placeholder="Marka automobila">
+                <mat-option *ngFor="let brand of brands" [value]="brand">
+                    {{brand}}
+                </mat-option>
+            </mat-select>
+            <mat-error *ngIf="form.get('brand')?.invalid">
+                Molim iazberite marku automobila.
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput formControlName="model" placeholder="Model automobila">
+            <mat-error *ngIf="form.get('model')?.invalid">
+                Molim unesite model automobila.
+            </mat-error>
+        </mat-form-field>
+        <br>
+        <button mat-raised-button color="accent" type="submit">Dodaj</button>
+    </form>
+</mat-card>

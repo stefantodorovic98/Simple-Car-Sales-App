@@ -1,0 +1,24 @@
+<button mat-icon-button [routerLink]="['/admin']">
+  <mat-icon>keyboard_backspace</mat-icon>
+  <span>Nazad</span>
+</button>
+<mat-card>
+    <mat-card-title>
+        Obrisi boju
+    </mat-card-title>
+    <mat-spinner *ngIf="isLoading"></mat-spinner>
+    <form (submit)="deleteColor()" *ngIf="!isLoading" [formGroup]="form">
+        <mat-form-field>
+            <mat-select formControlName="color">
+                <mat-option *ngFor="let color of colors" [value]="color">
+                    {{color}}
+                </mat-option>
+            </mat-select>
+            <mat-error *ngIf="form.get('fuel')?.invalid">
+                Molim iazberite boju.
+            </mat-error>
+        </mat-form-field>
+        <br>
+        <button mat-raised-button color="accent" type="submit">Obrisi</button>
+    </form>
+</mat-card>

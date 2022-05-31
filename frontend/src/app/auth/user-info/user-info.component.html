@@ -1,0 +1,37 @@
+<mat-card>
+    <mat-card-title>
+        Informacije o korisniku
+    </mat-card-title>
+    <mat-spinner *ngIf="isLoading"></mat-spinner>
+    <form *ngIf="!isLoading" [formGroup]="form">
+        <mat-form-field>
+            <mat-label>Ime</mat-label>
+            <input matInput formControlName="firstName" readonly>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Prezime</mat-label>
+            <input matInput formControlName="lastName" readonly>
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput [matDatepicker]="myPicker" placeholder="Datum rodjenja" formControlName="birthdate" readonly>
+            <mat-datepicker-toggle matSuffix [for]="myPicker" disabled></mat-datepicker-toggle>
+            <mat-datepicker #myPicker></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Mesto stanovanja</mat-label>
+            <input matInput formControlName="city" readonly>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Drzava stanovanja</mat-label>
+            <input matInput formControlName="country" readonly>
+        </mat-form-field>
+        <ul>
+            <li>
+                <button mat-raised-button color="primary" type="button" [routerLink]="['/userChange', loggedUserId]" *ngIf="userId === loggedUserId">Promeni informacije</button>
+            </li>
+            <li>
+                <button mat-raised-button color="warn" type="button" [routerLink]="['/passwordChange', loggedUserId]" *ngIf="userId === loggedUserId">Promeni lozinku</button>
+            </li>
+        </ul>
+    </form>
+</mat-card>

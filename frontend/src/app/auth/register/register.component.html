@@ -1,0 +1,60 @@
+<mat-card>
+    <mat-card-title>
+        Registracija korisnika
+    </mat-card-title>
+    <br>
+    <mat-spinner *ngIf="isLoading"></mat-spinner>
+    <form (submit)="onRegister()" *ngIf="!isLoading" [formGroup]="form">
+        <mat-form-field>
+            <input matInput placeholder="Ime" formControlName="firstName">
+            <mat-error *ngIf="form.get('firstName')?.invalid">
+                Molim unesite ime.
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput placeholder="Prezime" formControlName="lastName">
+            <mat-error *ngIf="form.get('lastName')?.invalid">
+                Molim unesite prezime.
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput type="email" placeholder="E-Mail" formControlName="email">
+            <mat-error *ngIf="form.get('email')?.errors?.['required']">
+                Polje mora biti popunjeno!
+            </mat-error>
+            <mat-error *ngIf="form.get('email')?.errors?.['email']">
+                Molim unesite ispravnu e-mail adresu.
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput type="password" placeholder="Lozinka" formControlName="password">
+            <mat-error *ngIf="form.get('password')?.errors?.['required']">
+                Polje mora biti popunjeno!
+            </mat-error>
+            <mat-error *ngIf="form.get('password')?.errors?.['pattern']">
+                Nije dobra forma lozinke!
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput [matDatepicker]="myPicker" placeholder="Datum rodjenja" formControlName="birthdate" readonly>
+            <mat-datepicker-toggle matSuffix [for]="myPicker"></mat-datepicker-toggle>
+            <mat-datepicker #myPicker></mat-datepicker>
+            <mat-error *ngIf="form.get('birthdate')?.invalid">
+                Molim unesite datum rodjenja
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput placeholder="Mesto stanovanja" formControlName="city">
+            <mat-error *ngIf="form.get('city')?.invalid">
+                Molim unesite mesto stanovanja.
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput placeholder="Drzava stanovanja" formControlName="country">
+            <mat-error *ngIf="form.get('country')?.invalid">
+                Molim unesite drzavu stanovanja.
+            </mat-error>
+        </mat-form-field>
+        <button mat-raised-button color="accent" type="submit" *ngIf="!isLoading">Zavrsi registraciju</button>
+    </form>
+</mat-card>
